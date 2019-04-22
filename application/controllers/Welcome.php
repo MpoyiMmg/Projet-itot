@@ -6,7 +6,8 @@ class Welcome extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->view('RdvDejaPris');
-		//echo anchor('index');
+		//chargement de la vue horaire
+		$this->load->view('horaire/horaire_view');
+
 	}
 }
