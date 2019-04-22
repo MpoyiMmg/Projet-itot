@@ -57,11 +57,12 @@ class RdvModel extends CI_Model{
 		return $this->db->get('tb_rdv');
 		redirect(anchor('Welcome'));
 	}
-	public function ajouter_commentaire($idRdv,$commentaire){
+
+	public function ajouter_commentaire($idRdv,$data){
+		$colonne='commentaire';
 		$this->db->where('idRdv',$idRdv);
-		$this->db->insert('commentaire',$commentaire);
-		return $this->db->get('tb_rdv');
-		redirect(anchor('Welcome'));
+		$this->db->update('tb_rdv',$data);
+		//$this->db->set($commentaire);
 	}
 }
 ?>

@@ -7,7 +7,7 @@ class Welcome extends CI_Controller {
 	public function index()
 	{
 		//chargement de la vue horaire
-		$this->load->view('horaire/horaire_view');
+		$this->load->view('client/ClientAjouterCommentaire');
 
 	}
 }
