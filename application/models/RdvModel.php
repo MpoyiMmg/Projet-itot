@@ -17,7 +17,7 @@ class RdvModel extends CI_Model{
 		parent::__construct();
 	}
 
-	//afficher les rendez vous en fonction des agents [Caleb]
+	//afficher les rendez vous deja accépté en fonction des agents [Caleb]
     public function afficherRDV($idAgent)
 	{
 		/*
@@ -37,20 +37,22 @@ class RdvModel extends CI_Model{
 		$this->db->select('*');
 		$this->db->where('idAgent='.$idAgent);
 		$this->db->where('tb_rdv.idClient=tb_client.idClient');
+		$this->db->where('etat=1');
 		return $this->db->get('tb_rdv, tb_agent, tb_client')->result_array();
 	}
 
 
 	//cette methode parle d'elle même! j'espère que cela passera sans me prendre la tête [Caleb]
-	public  function annulerRDV($idRdv,$etat)
+	public  function annulerRDV($idRdv,$data)
 	{
-		$data = array(
+		/*$data = array(
 			'etat' => $etat
-		);
+		);*/
 
 		$this->db->where('idRdv', $idRdv);
 		$this->db->update('tb_rdv', $data);
-		redirect('view/RdvDejaPris');
+		return $this->db->get('tb_rdv');
+		redirect(anchor('Welcome'));
 	}
 
 }

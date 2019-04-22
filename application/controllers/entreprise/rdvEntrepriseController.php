@@ -7,18 +7,36 @@ class rdvEntrepriseController extends CI_Controller {
 		parent::__construct();
 }
 
-	//fonction dans le but de lister les rendezvous
+	//fonction dans le but de lister les rendezvous [Caleb]
 	public function liste_rendez_vous_approuve()
 	{
 		$idAgent=2;
 		$data['rdvPris']=$this->RdvModel->afficherRdv($idAgent);
 		$this->load->view('RdvDejaPris',$data);
-
 	}
+	//fonction pour annuler RDV [Caleb]
 	public  function annuler_rdv_controller(){
-		$idRdv=2;
-		$etat="0";
-		$data['rdvPris']=$this->RdvModel->annulerRDV($idRdv,$etat);var_dump($data);
+		$idRdv=1;
+		//$etat="0";
+		//$this->input->post('idClient');
+		$idClient = "1";
+		$idEntreprise="2";
+		$motif="";
+		$date='2019-04-18';
+		$duree="2h";
+		$heure="08:00:00";
+		$data  = array(
+			'idClient' => $idClient,
+			'idEntreprise'=>$idEntreprise,
+			'motif'=>$motif,
+			'date'=>$date,
+			'heure'=>$heure,
+			'duree'=>$duree,
+			'etat' => "0",
+			'commentaire'=>''
+		);
+		//$data['rdvPris']=$this->RdvModel->annulerRDV($idRdv,$etat);
+		$this->RdvModel->annulerRDV($idRdv, $data);
 
 	}
 }
