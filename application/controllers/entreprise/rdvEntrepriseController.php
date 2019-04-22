@@ -39,4 +39,9 @@ class rdvEntrepriseController extends CI_Controller {
 		$this->RdvModel->annulerRDV($idRdv, $data);
 
 	}
+	public function ajouter_commentaire(){
+		$data=array(
+			'commentaire'=>
+		);
+	}
 }

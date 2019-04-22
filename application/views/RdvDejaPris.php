@@ -2,15 +2,16 @@
 <h1>
 	Rdv accépté:
 </h1>
-
+<?php foreach ($rdvPris as $rdv): ?>
+<?php
+	if (count($rdv)==0){
+		echo '<h1>vous n\'avez encore pris aucun rendez-vous<h1>';
+	}
+?>
 <ul>
-	<?php foreach ($rdvPris as $rdv): ?>
+
 		<li>
-			<?php
-				if ($rdvPris.count()==0){
-					echo '<h1>vous n\'avez encore pris aucun rendez vous<h1>';
-				}
-			?>
+
 
 			<h2>
 				<?= html_escape($rdv['nomClient'] . ' ') ?>
