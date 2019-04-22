@@ -52,10 +52,6 @@ class RdvModel extends CI_Model{
 	//cette methode parle d'elle même! j'espère que cela passera sans me prendre la tête [Caleb]
 	public  function annulerRDV($idRdv,$data)
 	{
-		/*$data = array(
-			'etat' => $etat
-		);*/
-
 		$this->db->where('idRdv', $idRdv);
 		$this->db->update('tb_rdv', $data);
 		return $this->db->get('tb_rdv');
@@ -67,6 +63,5 @@ class RdvModel extends CI_Model{
 		return $this->db->get('tb_rdv');
 		redirect(anchor('Welcome'));
 	}
-
 }
 ?>

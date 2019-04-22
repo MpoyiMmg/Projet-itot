@@ -40,8 +40,11 @@ class rdvEntrepriseController extends CI_Controller {
 
 	}
 	public function ajouter_commentaire(){
-		$data=array(
-			'commentaire'=>
-		);
+		if(isset($_POST['commentaire']))
+		{
+			$idRdv=1;
+			$commentaire=$_POST['commentaire'];
+			$this->RdvModel->ajouter_commentaire($idRdv,$commentaire);
+		}
 	}
 }
