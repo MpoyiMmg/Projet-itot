@@ -51,13 +51,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 
 $route['default_controller']  =  'welcome';
-$route['login_valide']        = 'login/LoginController/login_validation';
+$route['login_valide']        = 'login/loginController/login_validation';
 
 //le routing du client
 
 $route['annuler_rdv']         = 'client/ClientController';
 $route['modifier_rdv']        = 'client/ClientController/modifier_rdv';
-// $route['login_validation']    = 'login/loginController/login_validation';
+$route['login_validation']    = 'login/loginController/login_validation';
 
 //rooting vers le controlleur de l'entreprise
 
@@ -67,7 +67,7 @@ $route['horaire']             = 'horaire/HoraireController';
 $route['rdv']                 = 'rdv/RdvController';
 $route['404_override']        = '';
 $route['translate_uri_dashes']= FALSE;
-$route['horaire']             = 'entreprise/horaire/HoraireController';
+$route['ajouter_horaire']             = 'entreprise/horaire/HoraireController/ajouter_horaire';
 $route['rdv']                 = 'rdv/RdvController';
 
 // rooting vers le controlleur login
@@ -80,7 +80,9 @@ $route['agent']               = 'agent/AgentController';
 $route['ajouter_agent']       = 'agent/AgentController/ajouter_agent';
 $route['ajouter_departement'] = 'departement/DepartementController/enregstrer_departement';
 $route['modifier_agent']      = 'agent/AgentController/modifier_agent';
-$route['logout']              = 'login/LoginController/logout';
+$route['delete_agent']        = 'agent/AgentController/delete_agent';
+$route['logout']              = 'login/LoginController/logout_entreprise';
+$route['logout_agent']        = 'login/LoginController/logout_agent';
 $route['login_agent']         = 'login/loginController/login_agent';
 $route['agent_login']         = 'login/loginController/load_login_view';
 $route['entreprise2']         = 'welcome/entreprise';
