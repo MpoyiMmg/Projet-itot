@@ -7,13 +7,16 @@ class AgentController extends CI_Controller {
 	{
 		//chargement de la page ajouter_agent dans la vue
 		// var_dump($this->session->userdata);
-		var_dump($this->session->userdata('id'));
-		var_dump($this->session->userdata('email'));
+		// var_dump($this->session->userdata('id'));
+		// var_dump($this->session->userdata('email'));
 
 		// foreach($users as $user){
 		// 	echo $user;
 		// }
-		$this->load->view('agent');
+		$idAgent = (int) $this->session->userdata('idAgent');
+		$data['horaire']= $this->HoraireModel->get_Horaire($idAgent);
+		$data['jour']= $this->AgentsModel->get_jour();
+		$this->load->view('agent',$data);
 	}
 	public function ajouter_agent()
 	{
@@ -27,19 +30,19 @@ class AgentController extends CI_Controller {
 		$pwdconf = $this->input->post('confpwd');
 		$confpwd=$this->input->post('confpwd');
 		$idEntreprise = $this->session->userdata('id');
-		$idDept = 3;
-
+		$dept       = $this->input->post('dept');
+		//var_dump($dept);die;
 		if($pwd == $confpwd){
 			$pwd = sha1($pwd);
 			$data = array(
 				'nomAgent'=> $nomAgent,
-				'telephone'=> $telephone,
+				//'telephone'=> $telephone,
 				'email'=> $email,
 				// 'photo'=> $photo,
 				// 'username'=> $username,
-				'pwd'=>sha1($pwd),
+				'pwd'=>$pwd,
 				'idEntreprise' => $idEntreprise,
-				'idDept' => $idDept
+				'idDept' => $dept
 			);
 			$this->AgentsModel->ajouter_agent($data);
 			redirect(base_url('/departement/DepartementController'));
@@ -56,8 +59,15 @@ class AgentController extends CI_Controller {
 	public function modifier_agent(){
 		$idEntreprise = (int) $this->session->userdata('id');
 		$data['agents'] = $this->AgentsModel->get_Agent($idEntreprise);
-
 		$this->load->view('modifier_agent', $data);
+	}
+
+	public function delete_agent(){
+		$id = $this->input->get("id");
+		$idEntreprise = (int) $this->session->userdata('id');
+		$this->AgentsModel->delete_agent($id);
+		$data['agents'] = $this->AgentsModel->get_Agent($idEntreprise);
+		$this->load->view('setting', $data);
 	}
 	
 }
