@@ -15,10 +15,10 @@ class EntrepriseController extends CI_Controller{
 	}
 
 	public function register(){
-		$this->load->view("header");
+	
 		$this->load->view("register");
 	}
-
+	
 	public function upload_logo(){
 		$config['upload_path'] = base_url("/assets/img");
 		$config["allowed_type"] = 'jpg|jpeg|gif|png';
@@ -43,11 +43,8 @@ class EntrepriseController extends CI_Controller{
     {
 		$image_path = $this->upload_logo();
 		echo $image_path;
-        // $this->_rules();
-
-        // if ($this->form_validation->run()){
-           echo 'ok';
-            $pwd = $this->input->post('pwd');
+     
+      $pwd = $this->input->post('pwd');
 			$pwdConf = $this->input->post('confpwd');
 			if($pwd==$pwdConf)
 			{
@@ -56,7 +53,7 @@ class EntrepriseController extends CI_Controller{
 				$entreprise = array(
 					"nomEntreprise" => $this->input->post('name'),
 					"secteur" 		=> $this->input->post('secteur'),
-					"phone" 		=> $this->input->post('tel'),
+					"telephone" 		=> $this->input->post('tel'),
 					"email" 		=> $this->input->post('email'),
 					"description"   => $this->input->post('desc'),
 					"pwd"			=> $password
@@ -335,11 +332,13 @@ class EntrepriseController extends CI_Controller{
 	}
 
 	public function load_setting_view(){
-		$id = 3;
+	
 		$idEntreprise = (int) $this->session->userdata('id');
 		$data['agents'] = $this->AgentsModel->get_Agent($idEntreprise);
-		$data['depts']	= $this->DepartementModel->get_departement($id);
+		//$data['entreprise']=$this->EntreprisesModel->get_Entreprise_Select($idEntreprise);
+		$data['depts']	= $this->DepartementModel->get_departement($idEntreprise);
 		$data['error']  = '';
+		  //var_dump($data['depts']);die;
 		$this->load->view('setting', $data);
 	}
 
