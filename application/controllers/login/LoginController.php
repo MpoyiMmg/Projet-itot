@@ -30,11 +30,16 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 foreach($admin as $adm){
                     $data_session = array(
                         'id' => $adm->idEntreprise,
-                        'email' => $adm->email
+                        'email' => $adm->email,
+                        'nom' => $adm->nomEntreprise,
+                        'description' => $adm->description
                     );
+                
                     // echo $data_session['email'];
                     $this->session->set_userdata('id', $data_session['id']);
-                    $this->session->set_userdata('email', $data_session['email']);    
+                    $this->session->set_userdata('email', $data_session['email']);   
+                    $this->session->set_userdata('nom', $data_session['nom']);  
+                    $this->session->set_userdata('description', $data_session['description']); 
                 }
                 
                 redirect(base_url('/departement/DepartementController'));
@@ -63,41 +68,54 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
         public function login_agent(){
             
-            $email = $this->input->post('email');
-            $pwd = sha1($this->input->post('pwd'));
-
-            echo $pwd;
+            $username = $this->input->post('email');
+            $password = sha1($this->input->post('pwd'));
+         
             $data = array(
-                'email' => $email,
-                'pwd'   => $pwd
+                'email' => $username,
+                'pwd'   => $password
             );
+            // Données venant de la base de données pour permettre la vérification de l'authentification
+            // $data_db  =   $this->EntreprisesModel->verification($data);
+            // $admin    =   $this->EntreprisesModel->get_entreprise_line($data);
+
+            // var_dump($admin);
 
             $agents_data   =   $this->AgentsModel->verification($data);
-            // $agents        =   $this->AgentsModel->get_agents_line($data);
-            var_dump($agents_data);
-
-            // if($agents_data){
-            //     foreach($agents as $agent){
-
-            //         $this->session->set_userdata('id', $agent->idAgent);
-            //         $this->session->set_userdata('email', $agent->email);
-            //     }
-
-            //     redirect(base_url('/agent/AgentController'));
-
-            // }
-            // else{
-            //     redirect(base_url('agent_login'));
-            // }
-
+            //var_dump($agents_data);
+            $agents        =   $this->AgentsModel->get_agents_line($data);
+            if($agents_data){
+                
+                foreach($agents as $agent){
+        
+                    $id=$this->session->set_userdata('idAgent', $agent->idAgent);
+                    $this->session->set_userdata('nomAgent', $agent->nomAgent);
+                    $data['horaire']= $this->HoraireModel->get_horaire($id);
+                    $data['jour']= $this->AgentsModel->get_jour();
+                    //var_dump($data);die;
+		            //$this->load->view('agent',$data);
+                   redirect(base_url('/agent/AgentController'));
+                }
+            }
+            else{
+                $data['error'] = "Email ou mot de passe incorrect";
+                $this->load->view('agent_login', $data);
+            }
         }
 
         // Fonction de déconnexion
 
-        public function logout(){
+        public function logout_entreprise(){
             $this->session->unset_userdata('id');//Destruction des valeurs de session
             $this->session->unset_userdata('email');
+            $this->session->unset_userdata('nom');
+            $this->session->unset_userdata('description');
             redirect(base_url('login'));
+        }
+        public function logout_agent(){
+            $this->session->unset_userdata('idAgent');//Destruction des valeurs de session
+            $this->session->unset_userdata('nomAgent');
+            redirect(base_url('login_agent'));
         }
     }
 ?>
