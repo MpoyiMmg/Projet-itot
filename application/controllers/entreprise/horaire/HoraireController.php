@@ -17,10 +17,21 @@
 		    $data['randomEntreprise'] = $horaire;
 		    $this->load->view('',$data);
         }
-        public function ajouter_horaire($data)
+        public function ajouter_horaire()
         {
-            //insertion des donnees dans la base des donnees
-            $this->db->insert('tb_horaire', $data);
+            $id =$this->session->userdata('idAgent');
+                var_dump($id);
+            $data = array(
+                "heureDebut" => $this->input->post('debut'),
+                "heureFin" 		=> $this->input->post('fin'),
+                "description" 		=> $this->input->post('desc'),
+                "jour" 		=> $this->input->post('jour'),
+                "idAgent"      => $id,
+               
+            );
+            
+            $this->HoraireModel->ajouter_horaire($data);
+            redirect(base_url('/agent/AgentController'));
         }
     
 
