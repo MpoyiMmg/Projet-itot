@@ -88,14 +88,6 @@
                     <li class="site-nav--active active">
                         <a href="welcome" class="site-nav__link">Acceuil</a>
                     </li>
-
-
-                    <li>
-                        <a href="entreprise">
-                            Entreprises
-                        </a>
-                    </li>
-
                     <li>
                         <a href="login" id="customer_login_link">Se connecter</a>
                     </li>
@@ -106,10 +98,9 @@
                 </ul>
             </div>
         </nav>
-        <?php foreach ($randomEntreprise as $row) { ?>
+        <?php foreach ($entreprise as $row) { ?>
             <div class="row center">
-                <h2 class="collection-title"><?php echo $row['nomEntreprise'] 
-                ?></h2>
+                <h2 class="collection-title"><?php echo $row['nomEntreprise'] ?></h2>
                 <div class="card" style="background-image : url('<?php echo base_url('') ?>assets/img/apps.64902.9007199266242800.856b3755-5c57-4455-8c4a-1c980462c57b.821d4cb6-9593-4c09-a396-9c9e9fddc466.jpg');" id="semaine">
                     <div class="card-content center" id="p">
                         <p><?php echo $row['description'] ?></p>
@@ -124,8 +115,8 @@
                         <h4 class="collection-title">Agents de l'entreprise</h4>
                     </div>
                     <?php foreach ($agent as $row) { ?>
+                    
                         <div class="col s12 m6 l4 xl3">
-                       
                             <a class="modal-trigger" href="#horaire_<?php echo $row->idAgent; ?>">
                                 <div class="card">
                                     <div class="row">
@@ -139,44 +130,47 @@
                                     </div>
                                 </div>
                             </a>
-                        </div>
-                         <div id="horaire_<?php echo $row->idAgent ?>" class="modal modal-fixed-footer">
-                            <div class="modal-content">
-                                <h5>Horaire de <?php echo $row->nomAgent ?></h5>
-                                <table class="striped">
-                                    <thead>
+                            <div id="horaire_<?php echo $row->idAgent; ?>" class="modal">
+                                <div class="modal-content">
+                                <h1>Horaire de <?php echo $row->nomAgent; ?></h1>
+                                    <table>
+                                        <thead>
                                         <tr>
-                                            <th>Date</th>
-                                            <th>Heures</th>
+                                            <th>Jour</th>
+                                            <th>Heure-Debut</th>
+                                            <th>Heure-Fin</th>
+                                            <th>Description</th>
                                             <th>Action</th>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                    <?php foreach ($horaire as $hor) { ?>
-                                       
-                                        <?php
-                                        if(count($hor)!=0) if ($hor[0]['idAgent']==$row['idAgent']) {
-                                            foreach ($hor as $h){
-                                        ?>
-                                        <tr>
-                                            <td><?php echo $h['date'] ?></td>
-                                            <td><?php echo $h['heureDebut'] ?> - <?php echo $h['heureFin'] ?></td>
-                                            <td><a class="blue-text" href="rdv?horaire=<?php echo $h['idHoraire'] ?>">Ajouter un RDV</a></td>
-                                        </tr>
+                                        </thead>
+
+                                        <tbody>
+                                        <?php foreach ($horaire as $hor) {/*var_dump($hor);die; */
+                                        
+                                            if($hor[0]['idAgent'] == $row->idAgent ){
+                                            ?>
+                                            <tr>
+                                                <td><?php echo $hor[0]['nomJour']; ?></td>
+                                                <td><?php echo date('h:i',strtotime ( $hor[0]['heureDebut'])); ?></td>
+                                                <td><?php echo date('h:i',strtotime($hor[0]['heureFin'])); ?></td>
+                                                <td><?php echo $hor[0]['description']; ?></td>
+                                                <td><a href="rdv?idHoraire=<?php echo $hor[0]['idHoraire']; ?>&jour=<?php echo $hor[0]['nomJour']; ?>">Prendre RDV</a></td>
+                                            </tr>
+                                         
                                         <?php }}?>
-                                    <?php }?>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="modal-footer">
-                                <a href="#!" class="modal-close waves-effect waves-red btn-flat">Fermer</a>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Fermer</a>
+                                </div>
                             </div>
                         </div>
                     <?php }?>
                 </div>
             </div>
         </div>
-
+        
         <div id="shopify-section-footer" class="shopify-section">
             <footer class="page-footer" style="background-color: #04c39f">
                 <div class="footer-copyright">
@@ -220,7 +214,7 @@
             });
             document.addEventListener('DOMContentLoaded', function() {
                 var elems = document.querySelectorAll('.modal');
-                var instances = M.Modal.init(elems);
+                var instances = M.Modal.init(elms);
             });
         </script>
 
