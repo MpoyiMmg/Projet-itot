@@ -68,7 +68,7 @@ $route['rdv']                 = 'rdv/RdvController';
 $route['404_override']        = '';
 $route['translate_uri_dashes']= FALSE;
 $route['ajouter_horaire']             = 'entreprise/horaire/HoraireController/ajouter_horaire';
-$route['rdv']                 = 'rdv/RdvController';
+
 
 // rooting vers le controlleur login
 
@@ -86,3 +86,4 @@ $route['logout_agent']        = 'login/LoginController/logout_agent';
 $route['login_agent']         = 'login/loginController/login_agent';
 $route['agent_login']         = 'login/loginController/load_login_view';
 $route['entreprise2']         = 'welcome/entreprise';
+$route['Prendre_Rdv']         = 'rdv/RdvController/prendre_rdv';
