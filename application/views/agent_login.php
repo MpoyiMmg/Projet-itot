@@ -311,11 +311,7 @@
 					Entreprises
 				</a>
 			</li>
-			<li>
-				<a class="fullscreen-search" href="#">
-					Recherche
-				</a>
-			</li>
+			
 		</ul>
 	
 		<div data-section-id="header" data-section-type="header-section">
