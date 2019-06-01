@@ -170,25 +170,19 @@
                 <a href="index2.html" itemprop="url" class="brand-logo site-logo">
                     TakeDate
                 </a>
-                <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+                <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">Menu</i></a>
                 <ul class="right hide-on-med-and-down">
 
                     <li class="site-nav--active active">
                         <a href="<?= base_url()?>" class="site-nav__link">Acceuil</a>
                     </li>
-                    <li>
-                        <a href="" class="site-nav__link">Rendez-Vous</a>
-                    </li>
+                  
                     <li>
                         <a href="<?= base_url('entreprise')?>">
                             Entreprises
                         </a>
                     </li>
-                    <li>
-                        <a class="fullscreen-search" href="#">
-                            <i class="material-icons">search</i>
-                        </a>
-                    </li>
+                   
                     <li>
                         <a href="<?= base_url('logout'); ?>" id="customer_login_link">Se deconnecter</a>
                     </li>
@@ -201,6 +195,28 @@
                         </a>
                     </li>
                 </ul>
+                <ul class="side-nav" id="nav-mobile">
+		<li> <a href="account/login.html" id="customer_login_link">Se connecter</a> </li>
+		<li> <a href="account/register.html" id="customer_register_link">S'inscrire</a> </li>
+
+		<li class="site-nav--active active">
+			<a href="welcome" class="site-nav__link">Acceuil</a>
+		</li>
+		<li>
+			<a href="blogs/news.html" class="site-nav__link">Rendez-Vous</a>
+		</li>
+		<li>
+			<a href="cart.html">
+				Entreprises
+			</a>
+		</li>
+		<li>
+			<a class="fullscreen-search" href="#">
+				Recherche
+			</a>
+		</li>
+	</ul>
+
             </div>
         </nav>
         
@@ -256,7 +272,7 @@
         </div>
 
         <div class="row center">
-            <h2 class="collection-title">Google</h2>
+            <h2 class="collection-title"><?php echo $this->session->userdata('nom');?></h2>
             <div class="card"
                 style="background-image : url('<?= base_url('assets/img/rumeur-apple-realite-augmentee-conduite-autonome.jpg');?>');"
                 id="semaine">
@@ -264,11 +280,11 @@
                     <a href="#add_agent_form" class="modal-trigger btn-floating right red waves-effect waves-light btn-flat" style="margin-right:30px;">
                         <i class="material-icons white-text">person_add</i>
                     </a>
-                
+                  
                     <a href="#add_departement_form" class="modal-trigger btn-floating  waves-effect waves-light red right" style="margin-right:16px;">
-                        <i class="material-icons">edit</i>
+                        <i class="material-icons">add</i>
                     </a>
-                    <p>I am a very simple card. I am good at containing small bits of information.</p>
+                    <p><?php echo $this->session->userdata('description');?></p>
                 </div>
             </div>
         </div>
@@ -335,14 +351,6 @@
                         </label>
                         <input type="text" name="name" id="name">
                     </div>
-                
-                    <div class="input-field">
-                        <label for="phone">
-                            Numero de téléphone
-                        </label>
-                        <input type="text" name="phone" id="phone">
-                    </div>
-                
                     <div class="input-field">
                         <label for="Email">
                             Email
@@ -350,7 +358,14 @@
                         <input type="email" name="email" id="Email" class="" value="" spellcheck="false" autocomplete="off"
                             autocapitalize="off">
                     </div>
-                
+                    <div class="input-field ">
+                        <select name="dept">
+                           <?php foreach ($depts as $row) {?>
+                            <option value="<?php echo $row['idDept']?>"><?php echo $row['nomDept']?></option>
+                           <?php } ?>
+                        </select>
+                        <label>Departement</label>
+                    </div>
                     <div class="input-field">
                         <label for="pwd">
                             Mot de passe
@@ -362,8 +377,9 @@
                         <label for="pwd">
                             Confirmez le Mot de passe
                         </label>
-                        <input type="password" name="confpwd" id="pwd" class="">
+                        <input type="password" name="confpwd" id="pwdc" class="">
                     </div>
+                    
                     <div class="modal-footer">
                         <input type="submit" value="Créer" class="btn-flat waves-effect waves-light white-text" style="background-color: #04C39F;">
                         <a href="#!" class="modal-close waves-effect waves-red btn-flat">Fermer</a>
@@ -393,19 +409,18 @@
                             <?php
                                 $id = $this->session->userdata('id'); 
                                 foreach($agents as $agent){
-                                    foreach($depts as $dept){
+                                   
                             ?>
                             <tr>
                                 <td><?= $agent->nomAgent; ?></td>
                                 <td><?= $agent->email; ?></td>
-                                <td><?= $dept->nomDept; ?></td>
+                                <td><?= $agent->nomDept; ?></td>
                                 <td>
-                                    <a href="#">Supprimer</a>
-                                    <a href="<?= base_url('modifier_agent');?>?id=<?= $agent->idAgent?>">Modifier</a>
+                                    <a href="<?= base_url('delete_agent');?>?id=<?= $agent->idAgent?>"><i class="material-icons">delete</i></a>
+                                    <a href="<?= base_url('modifier_agent');?>?id=<?= $agent->idAgent?>"><i class="material-icons">edit</i></a>
                                 </td>
                             </tr>
                             <?php
-                                }
                             }
                             ?>
                         </tbody>
@@ -416,7 +431,7 @@
 
         <div id="add_departement_form" class="modal">
             <div class="modal-content">
-                <h5>Ajouter un agent</h5>
+                <h5>Ajouter un departement</h5>
                 <form method="post" action="<?= base_url('ajouter_departement');?>" id="create_customer" accept-charset="UTF-8">
                     <input type="hidden" name="idEntreprise" value="" />
                     <input type="hidden" name="idDpt" value="✓" />
@@ -489,8 +504,15 @@
                 var instances = M.Modal.init(elems);
             });
             var base_url = '<?php echo base_url('')?>';
-            
+           
         </script>
+       <script>  
+            document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('select');
+            var instances = M.FormSelect.init(elems);
+             });
+        </script>
+
 
 </body>
 
