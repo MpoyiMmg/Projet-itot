@@ -132,7 +132,7 @@
 				</div>
 			<?php foreach($dataEntreprise as $row){?>
 				<div class="col s12 m6 l4">
-					<a href="entreprise?id=<?php echo $row['idEntreprise']?>">
+					<a href="welcome/entreprise?id=<?php echo $row['idEntreprise']?>">
 					<div class="card">
 						<div class="card-image">
 							<img src="<?php echo base_url('')?>assets/img/rumeur-apple-realite-augmentee-conduite-autonome.jpg">
