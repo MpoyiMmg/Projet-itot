@@ -12,6 +12,10 @@ class Welcome extends CI_Controller {
 		$this->load->view('index',$data);
 		// $this->load->view('rdv');
 	}
+	public function precharge()
+	{
+		$this->load->view('precharge');
+	}
 	public function list_entreprise()
 	{
 		$entreprise = $this->EntreprisesModel->get_Entreprise();
@@ -19,6 +23,9 @@ class Welcome extends CI_Controller {
 		$data['dataEntreprise'] = $entreprise;
 		$data['randomEntreprise'] = $random;
 		$this->load->view('listentreprise',$data);
+	}
+	public function login_valide(){
+		redirect(base_url('login_valide'));
 	}
 
 	public function login()
@@ -29,6 +36,7 @@ class Welcome extends CI_Controller {
 
 	public function register()
 	{
+	
 		$this->load->view('register');
 	}
 
@@ -46,22 +54,35 @@ class Welcome extends CI_Controller {
 		
 		foreach($agents as $agent){
 			$idAgent = $agent->idAgent;
-			$horaires[] = $this->HoraireModel->get_Horaire($idAgent);
-			
+			$horaires[] = $this->HoraireModel->get_Horaire($idAgent);	
 		}
-		$random = $this->EntreprisesModel->get_Random_Entreprises();
-		$data['randomEntreprise'] = $random;
+		$data['entreprise']=$this->EntreprisesModel->get_Entreprise_Select($idEntreprise);
+		//$random = $this->EntreprisesModel->get_Random_Entreprises();
+		
 		$data['agent'] = $agents;
 		$data['horaire'] = $horaires;
-
 		//$data['horaire'] = $horaire;
+		//var_dump($data['horaire']);die;
 		$this->load->view('entreprise',$data);
 	
+	}
+	  // Methode de validation des données du formulaire
+	  public function login_validation(){
+		redirect(base_url('/login/LoginController'));
 	}
 
 	public function rdv()
 	{
-		$this->load->view('rdv');
+		$reservation = $this->RdvModel->get_reservation();
+		$idRdv = $this->input->get("idHoraire");
+		$jour = $this->input->get("jour");
+		$data = array(
+			'idRdv'=>$this->input->get("idHoraire"),
+			'jour'=>$this->input->get("jour"),
+			'reserve'=>$reservation
+		);
+		//var_dump($data);die;
+		$this->load->view('rdv',$data);
 	}
 	public function agent()
 	{
@@ -81,7 +102,32 @@ class Welcome extends CI_Controller {
 			'Nbrdv' => $this->input->post('nbrdv')
 		);
 		$this->HoraireModel->ajouter_horaire($data);
-		echo 'ok';
+	
+	}
+	public function date()
+	{
+		$jours = array(
+			"Lundi" 	=>"monday",
+			"Mardi" 	=>"tuesday",
+			"Mercredi"	=>"wednesday",
+			"Jeudi"		=>"thursday",
+			"Vendredi"	=>"friday",
+			"Samedi"	=>"saturday ",
+			"Dimanche"	=>"sunday"
+		);
+		var_dump($jours['Lundi']);die;
+		$mois_courant=date('M');
+		$reservation=7;
+		$jourHoraire='sunday';
+		$aujourdhui=new DateTime();
+		$format=$aujourdhui->format('Y-m-d');
+		//var_dump($jourHoraire);
+		$date = new DateTime($format.' +'.$reservation.'day');
+		$dateformat=$date->format('d-m-Y');
+		$datef = new DateTime($dateformat); 
+		$dateRDV=($datef->modify('next '.$jourHoraire))->format('d-m-Y');
+		var_dump($dateRDV);die;
+		//var_dump($aujourdhui->format('d-m-Y'));die;	
 	}
 }
 
