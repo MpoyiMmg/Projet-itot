@@ -184,13 +184,9 @@
                             Entreprises
                         </a>
                     </li>
+                   
                     <li>
-                        <a class="fullscreen-search" href="#">
-                            <i class="material-icons">search</i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="<?= base_url('logout'); ?>" id="customer_login_link">Se deconnecter</a>
+                        <a href="<?= base_url('logout_agent'); ?>" id="customer_login_link">Se deconnecter</a>
                     </li>
                     <li>
                         <a href="#profil" class="modal-trigger btn-floating right waves-effect btn-flat" style="margin-top: 20px;">
@@ -201,7 +197,26 @@
                         </a>
                     </li>
                 </ul>
+             
+
             </div>
+            <ul class="side-nav" id="nav-mobile">
+		<li> <a href="account/login.html" id="customer_login_link">Se connecter</a> </li>
+		<li> <a href="account/register.html" id="customer_register_link">S'inscrire</a> </li>
+
+		<li class="site-nav--active active">
+			<a href="welcome" class="site-nav__link">Acceuil</a>
+		</li>
+		<li>
+			<a href="blogs/news.html" class="site-nav__link">Rendez-Vous</a>
+		</li>
+		<li>
+			<a href="cart.html">
+				Entreprises
+			</a>
+		</li>
+		
+	</ul>
         </nav>
         <div id="add_agent_form" class="modal">
             <div class="modal-content">
@@ -230,14 +245,12 @@
                         <input type="email" name="email" id="Email" class="" value="" spellcheck="false" autocomplete="off"
                             autocapitalize="off">
                     </div>
-                
                     <div class="input-field">
                         <label for="pwd">
                             Mot de passe
                         </label>
                         <input type="password" name="pwd" id="pwd" class="">
                     </div>
-                
                     <div class="input-field">
                         <label for="pwd">
                             Confirmez le Mot de passe
@@ -257,13 +270,13 @@
                     <div class="row">
                         <div class="col s12">
                             <div class="card row">
-                                <h4 class="collection-title col s8"> &bull; Agent</h4>
+                                <h4 class="collection-title col s8"> &bull;<?php echo $this->session->userdata('nomAgent');?> </h4>
                                 <div class="mt-1 col s4">
-                                    <a href="#app" class="btn-floating right waves-effect btn-flat">
-                                        <i class="material-icons black-text">settings</i>
+                                    <a href="#add_horaire_form" class="modal-trigger btn-floating  waves-effect waves-light red right" style="margin-right:16px;">
+                                         <i class="material-icons">add</i>
                                     </a>
-                                    <a href="#add_agent_form" class="modal-trigger btn-floating right waves-effect btn-flat">
-                                        <i class="material-icons black-text">person_add</i>
+                                    <a href="#add_departement_form" class="modal-trigger btn-floating  waves-effect waves-light red right" style="margin-right:16px;">
+                                         <i class="material-icons">settings</i>
                                     </a>
                                 </div>
                             </div>
@@ -274,10 +287,63 @@
         </div>
 
 
-        <div id="app">
-            
+        <div class="row">
+            <div class="col s12">
+                <div class="container">
+                    <ul class="collapsible">
+                        <?php foreach ($horaire as $row) {?>
+                        <li>
+                            <div class="collapsible-header"><i class="material-icons"></i><?php echo $row['nomJour']?><div style="margin-left:10px"><bold><?php echo date('h:i',strtotime($row['heureDebut']))?></bold>-<?php echo date('h:i',strtotime( $row['heureFin']))?></div></div>
+                            <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+                        </li>
+                        <?php }?>
+                    </ul>
+                </div>
+            </div>
+         </div>       
+         <div id="add_horaire_form" class="modal">
+            <div class="modal-content">
+                <h5>Ajouter un horaire</h5>
+                <form method="post" action="<?= base_url('ajouter_horaire');?>" id="create_customer" accept-charset="UTF-8">
+                    <input type="hidden" name="idEntreprise" value="" />
+                    <input type="hidden" name="idDpt" value="✓" />
+                   
+   
+                    <div class="input-field">
+                        <label for="name">
+                            Heure debut
+                        </label>
+                        <input type="text" class="timepicker" name="debut">
+                    </div>
+                    <div class="input-field">
+                        <label for="name">
+                            Heure  Fin
+                        </label>
+                        <input type="text" class="timepicker" name="fin">
+                    </div>
+                   
+                    <div class="input-field">
+                        <textarea id="textarea1" class="materialize-textarea" name="desc"></textarea>
+                        <label for="textarea1">Description</label>
+                    </div>
+
+                    <div class="input-field">
+                                <select name="jour">
+                                <?php foreach ($jour as $row) {?>
+                                <option value="<?php echo $row['id']?>"><?php echo $row['nomJour']?></option>
+                                <?php }?>
+                                </select>
+                                <label>jour</label>
+                    </div>
+                            
+                   
+                    <div class="modal-footer">
+                        <input type="submit" value="Créer" class="btn-flat waves-effect waves-light white-text" style="background-color: #04C39F;">
+                        <a href="#!" class="modal-close waves-effect waves-red btn-flat">Fermer</a>
+                    </div>
+                </form>
+            </div>
         </div>
-        
         <div id="profil" class="modal">
             <div id="profil" class="modal_content">
                 <div class="row">
@@ -302,12 +368,7 @@
                                     </label>
                                     <input type="text" name="name" id="name" class="validate">
                                 </div>
-                                <div class="input-field s6">
-                                    <label for="name">
-                                        Nom
-                                    </label>
-                                    <input type="text" name="name" id="name" class="validate">
-                                </div>
+                                
                             </div>
                             
                         </div>
@@ -355,12 +416,12 @@
         <!--<![endif]-->
         <!--[if lt IE 9]><script src="//cdn.shopify.com/s/files/1/2030/2737/t/6/assets/theme.js?0"></script><![endif]-->
 
-        <script src="<?php echo base_url('')?>assets/calendar/js/index.js"></script>
+        <!-- <script src="<?php echo base_url('')?>assets/calendar/js/index.js"></script>
 
-        <script src="<?php echo base_url('')?>assets/js/agent.js"></script>
+        <script src="<?php echo base_url('')?>assets/js/agent.js"></script> -->
 
         <script>
-            $(document).ready(function () {
+            $(document).ready(function () {format="jj"
                 var categories = $('nav .categories-container');
                 if (categories.length) {
                     categories.pushpin({ top: categories.offset().top });
@@ -372,7 +433,25 @@
             var base_url = '<?php echo base_url('')?>';
             
         </script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var elems = document.querySelectorAll('.collapsible');
+                var instances = M.Collapsible.init(elems);
+            });
+        </script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var elems = document.querySelectorAll('.timepicker');
+                var instances = M.Timepicker.init(elems);
+            });
 
+        </script>
+         <script>  
+            document.addEventListener('DOMContentLoaded', function() {
+                var elems = document.querySelectorAll('select');
+                var instances = M.FormSelect.init(elems);
+            });
+        </script>
 </body>
 
 </html>
