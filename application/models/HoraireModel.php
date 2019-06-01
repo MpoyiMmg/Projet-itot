@@ -27,7 +27,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         public function get_horaire($idAgent)
         {
             $this->db->select('*');
-            $this->db->where('idAgent',$idAgent);
+            $this->db->join('tb_jour', 'tb_horaire.jour = tb_jour.id'); 
+            $this->db->where('tb_horaire.idAgent',$idAgent);
             return $this->db->get('tb_horaire')->result_array();
         }
     }
