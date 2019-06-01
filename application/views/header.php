@@ -85,4 +85,22 @@
 			 <div class="nav-header center">
 				<h1>Prenez rendez-vous avec l'avenir</h1>
 			</div>
+			<ul class="side-nav" id="nav-mobile">
+		<li> <a href="account/login.html" id="customer_login_link">Se connecter</a> </li>
+		<li> <a href="account/register.html" id="customer_register_link">S'inscrire</a> </li>
+
+		<li class="site-nav--active active">
+			<a href="welcome" class="site-nav__link">Acceuil</a>
+		</li>
+		<li>
+			<a href="blogs/news.html" class="site-nav__link">Rendez-Vous</a>
+		</li>
+		<li>
+			<a href="cart.html">
+				Entreprises
+			</a>
+		</li>
+		
+	</ul>
+
 		</nav>
