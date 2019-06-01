@@ -104,7 +104,7 @@
 				<?php
 					$id = $row['idEntreprise'];
 				?>
-				<a href="entreprise2?id=<?php echo $id?>">
+				<a href="welcome/entreprise?id=<?php echo $id?>">
 					<div class="card">
 						<div class="card-image">
 							<img src="<?php echo base_url('')?>assets/img/google-wallpaper-11.jpg">
