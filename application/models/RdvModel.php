@@ -4,8 +4,6 @@ class RdvModel extends CI_Model{
     
     public function prendre_rdv($data)
     {
-        //insertion des donnees dans la base des données bd_rdv
-        
         $this->db->insert('tb_rdv', $data);
     }
 
@@ -58,6 +56,11 @@ class RdvModel extends CI_Model{
 		$this->db->where('idRdv', $idRdv);
 		$this->db->update('tb_rdv', $data);
 		redirect('view/RdvDejaPris');
+	}
+	public  function get_reservation()
+	{
+		$this->db->select('*');
+		return $this->db->get('tb_reservation')->result_array();
 	}
 
 }
