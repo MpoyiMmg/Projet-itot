@@ -72,7 +72,7 @@ class EntreprisesModel extends CI_Model
         $tb_agent = 'tb_entreprise';
         $this->db->where('email', $data['email']);
         $this->db->where('pwd', $data['password']);
-        $query = $this->db->get($tb_agent);
+        $query = $this->db->get($tb_entreprise);
 
         if ($query->num_rows() > 0) {
             return true;
@@ -83,10 +83,10 @@ class EntreprisesModel extends CI_Model
     #########################################################################
     public function verification($data){
 
-        $this->db->select('*')
-                 ->where('email', $data['email'])
-                 ->where('pwd', $data['pwd']);
-         $req = $this->db->get('tb_entreprise');
+        $this->db->select('*');
+        $this->db->where('email', $data['email']);
+        $this->db->where('pwd', $data['pwd']);
+        $req = $this->db->get('tb_entreprise');
 
         if($req->num_rows() > 0){
             return True;
@@ -104,6 +104,7 @@ class EntreprisesModel extends CI_Model
                         ->where('pwd', $data['pwd'])
                         ->get('tb_entreprise')
                         ->result();
+                        
         return $req;
     }
   
@@ -112,6 +113,14 @@ class EntreprisesModel extends CI_Model
     {
         //cette methode recupere tout les elements de la table tb_entreprise
         $this->db->select('*');
+        return $this->db->get('tb_entreprise')->result_array();
+    }
+    #########################################################################
+    public function get_Entreprise_Select($id)
+    {
+        //cette methode recupere tout les elements de la table tb_entreprise
+        $this->db->select('*');
+        $this->db->where('idEntreprise',$id);
         return $this->db->get('tb_entreprise')->result_array();
     }
 
