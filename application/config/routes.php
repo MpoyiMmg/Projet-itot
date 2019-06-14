@@ -87,3 +87,4 @@ $route['login_agent']         = 'login/loginController/login_agent';
 $route['agent_login']         = 'login/loginController/load_login_view';
 $route['entreprise2']         = 'welcome/entreprise';
 $route['Prendre_Rdv']         = 'rdv/RdvController/prendre_rdv';
+$route['welcome']             = 'Welcome/index';
