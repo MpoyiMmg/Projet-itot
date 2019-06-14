@@ -368,6 +368,12 @@
                     </div>
                     <div class="input-field">
                         <label for="pwd">
+                            Fonction
+                        </label>
+                        <input type="password" name="fonction" id="fonction" class="">
+                    </div>
+                    <div class="input-field">
+                        <label for="pwd">
                             Mot de passe
                         </label>
                         <input type="password" name="pwd" id="pwd" class="">
