@@ -12,6 +12,16 @@ class Welcome extends CI_Controller {
 		$this->load->view('index',$data);
 		// $this->load->view('rdv');
 	}
+	public function creno(){
+		$heure_debut = "02:00";
+		$heure_fin = "03:00";
+		$d = new DateTime($heure_debut);
+		while ($d->format('H:i') <= $heure_fin) {
+			echo $d->format('H\hi') . "<br />";
+			$d->modify("+20min");
+		}
+		//var_dump($d);die;
+	}
 	public function precharge()
 	{
 		$this->load->view('precharge');
