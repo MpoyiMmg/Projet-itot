@@ -24,7 +24,7 @@ class AgentController extends CI_Controller {
 		$nomAgent= $this->input->post('name');
 		$telephone= $this->input->post('phone');
 		$email= $this->input->post('email');
-		// $photo= $this->input->post('photo');
+		$fonction= $this->input->post('fonction');
 		$username= $this->input->post('username');
 		$pwd= $this->input->post('pwd');
 		$pwdconf = $this->input->post('confpwd');
@@ -37,8 +37,8 @@ class AgentController extends CI_Controller {
 			$data = array(
 				'nomAgent'=> $nomAgent,
 				//'telephone'=> $telephone,
-				'email'=> $email,
-				// 'photo'=> $photo,
+				'email'=> $email, 
+				'fonction'=> $fonction,
 				// 'username'=> $username,
 				'pwd'=>$pwd,
 				'idEntreprise' => $idEntreprise,
