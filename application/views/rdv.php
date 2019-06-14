@@ -160,7 +160,7 @@
 				<a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
 				<ul class="right hide-on-med-and-down">
 					<li class="site-nav--active active">
-						<a href="welcome" class="site-nav__link">Acceuil</a>
+						<a href="../welcome" class="site-nav__link">Acceuil</a>
 					</li>
 					
 					<li>
@@ -226,6 +226,7 @@
 										<label for="Motif">Motif</label>
 										<textarea id="motif" name='motif' class="materialize-textarea"></textarea>
 									</div>
+									
 									<div class="input-field ">
 										<select name="reservation">
 										<?php foreach ($reserve as $row) {?>
@@ -233,8 +234,16 @@
 										<?php }?>
 									
 										</select>
-										<label>Materialize Select</label>
+										<label>Reservation</label>
 									</div>
+								
+										<label>
+											<input type="checkbox" class="filled-in"  />
+											<span>Filled in</span>
+										</label>
+									
+									
+									
 									<div class="input-field">
 										<input type="hidden" name="idhoraire" id="Idhoraire" class="" value="<?php echo $idRdv?>" spellcheck="false" autocomplete="off" autocapitalize="off">
 									</div>
