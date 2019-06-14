@@ -336,12 +336,7 @@
 					<a href="welcome" class="site-nav__link">Acceuil</a>
 				</li>
 				
-				<li>
-					<a href="#">
-						Entreprises
-					</a>
-				</li>
-				
+	
 				<li>
 					<a href="login" id="customer_login_link">Se connecter</a>
 				</li>
