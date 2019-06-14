@@ -176,14 +176,6 @@
                     <li class="site-nav--active active">
                         <a href="<?= base_url('welcome')?>" class="site-nav__link">Acceuil</a>
                     </li>
-                    <li>
-                        <a href="<?= base_url('rdv');?>" class="site-nav__link">Rendez-Vous</a>
-                    </li>
-                    <li>
-                        <a href="<?= base_url('entreprise')?>">
-                            Entreprises
-                        </a>
-                    </li>
                    
                     <li>
                         <a href="<?= base_url('logout_agent'); ?>" id="customer_login_link">Se deconnecter</a>
@@ -320,6 +312,12 @@
                             Heure  Fin
                         </label>
                         <input type="text" class="timepicker" name="fin">
+                    </div>
+                    <div class="input-field">
+                        <label for="name">
+                            Durée d'un Rendez-vous
+                        </label>
+                        <input type="number" class="" name="duree">
                     </div>
                    
                     <div class="input-field">
