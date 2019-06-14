@@ -125,7 +125,7 @@
                                         </div>
                                         <div class="col s8 blue-text">
                                             <h5><?php echo $row->nomAgent ?></h5>
-                                            <p>Secretaire adjoint</p>
+                                            <p><?php echo $row->fonction ?></p>
                                         </div>
                                     </div>
                                 </div>
@@ -150,6 +150,7 @@
                                             if($hor[0]['idAgent'] == $row->idAgent ){
                                             ?>
                                             <tr>
+                                           
                                                 <td><?php echo $hor[0]['nomJour']; ?></td>
                                                 <td><?php echo date('h:i',strtotime ( $hor[0]['heureDebut'])); ?></td>
                                                 <td><?php echo date('h:i',strtotime($hor[0]['heureFin'])); ?></td>
